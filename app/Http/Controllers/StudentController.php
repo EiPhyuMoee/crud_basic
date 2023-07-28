@@ -39,7 +39,7 @@ class StudentController extends Controller
             'student_name'          =>  'required',
             'student_email'         =>  'required',
             'student_image'         =>  'required',
-            'student_image'         =>  'required|image|mimes:jpg,png,jpeg,gif,svg|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000'
+            'student_image'         =>  'required',
         ]);
         $file_name = time() . '.' . request()->student_image->getClientOriginalExtension();
 
@@ -92,12 +92,14 @@ class StudentController extends Controller
         'student_email'         =>  'required',
         'student_image'         =>  'required',
     ]);
+    $file_name = time() . '.' . request()->student_image->getClientOriginalExtension();
 
+    request()->student_image->move(public_path('images'), $file_name);
         Student::find($id)->update([
             'student_name'=>$request->student_name,
             'student_email'=>$request->student_email,
             'student_gender'=>$request->student_gender,
-            'student_image'=>$request->student_image
+            'student_image'=>$file_name
 
           ]);
           return redirect()->route('std.index')->with('success', 'Student Update successfully.');
