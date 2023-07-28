@@ -14,7 +14,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students=Student::paginate(2);
+        $students=Student::paginate(5);
         return view('student.index',compact('students'));
     }
 
@@ -39,12 +39,17 @@ class StudentController extends Controller
             'student_name'          =>  'required',
             'student_email'         =>  'required',
             'student_image'         =>  'required',
+            'student_image'         =>  'required|image|mimes:jpg,png,jpeg,gif,svg|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000'
         ]);
+        $file_name = time() . '.' . request()->student_image->getClientOriginalExtension();
+
+        request()->student_image->move(public_path('images'), $file_name);
+
       Student::create([
         'student_name'=>$request->student_name,
         'student_email'=>$request->student_email,
         'student_gender'=>$request->student_gender,
-        'student_image'=>$request->student_image
+        'student_image'=>$file_name
 
       ]);
       return redirect()->route('std.index')->with('success', 'Student Added successfully.');

@@ -33,7 +33,7 @@
                         <td>{{ $student->student_name }}</td>
                         <td>{{ $student->student_email }}</td>
                         <td>{{ $student->student_gender }}</td>
-                        <td>{{ $student->student_image }}</td>
+                        <td><img src="{{ asset('images/' . $student->student_image) }}" width="75" /></td>
                         <td>
                             <form method="post" action="{{ route('std.destroy', $student->id) }}">
                             @csrf
