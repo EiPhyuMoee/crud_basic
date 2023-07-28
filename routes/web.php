@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('testing');
+    return view('welcome');
 });
 Route::resource('std', StudentController::class);
